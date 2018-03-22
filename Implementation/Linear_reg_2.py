@@ -37,7 +37,7 @@ def implement():
     dataset['view_4']=view[4]
     #print(dataset.describe())
     
-    X=dataset.iloc[:,1:-1].values
+    X=dataset.iloc[:,1:].values
     y=dataset.iloc[:,0].values
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .20, random_state=42)
     linReg=linear_model.LinearRegression(fit_intercept=False)#fit_intercept=False avoids dummy variable traps

@@ -36,7 +36,7 @@ def implement():
     dataset['view_4']=view[4]
     #print(dataset.describe())
     
-    X=dataset.iloc[:,1:-1].values
+    X=dataset.iloc[:,1:].values
     y=dataset.iloc[:,0].values
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .20, random_state=42)
     ridgeReg=linear_model.Ridge(alpha=0.001,normalize=True,fit_intercept=True)

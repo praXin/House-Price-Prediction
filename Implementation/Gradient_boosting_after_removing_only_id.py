@@ -19,13 +19,11 @@ def implement():
     del dataset['date']#Because linear regression is showing a score of 0.01 if attribute's name is "date". What might be the reason for this behaviour?
     dataset['ordinal_dt']=pd.to_datetime(dataset['ordinal_dt'])
     dataset['ordinal_dt']=dataset['ordinal_dt'].map(dt.datetime.toordinal)
-    del dataset['id']
-# =============================================================================
-#     remove=['id','condition','yr_renovated','zipcode']#'yr_built' is not being deleted because when it was considered, the score of the regression incresed by 1%
-#     for ele in remove:
-#         del dataset[ele]
-# =============================================================================
-
+#    del dataset['id']
+    remove=['id','sqft_living15','sqft_lot15'] #becuase these are difficult for a user to specify
+    for ele in remove:
+        del dataset[ele]
+        
     view=pd.get_dummies(dataset['view'])
     del dataset['view']
     dataset['view_0']=view[0]
@@ -34,17 +32,17 @@ def implement():
     dataset['view_3']=view[3]
     dataset['view_4']=view[4]
         
-    X=dataset.iloc[:,1:-1].values
+    X=dataset.iloc[:,1:].values
     y=dataset.iloc[:,0].values
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .20, random_state=42)
   
 # =============================================================================
 #     gdb=GradientBoostingRegressor(n_estimators=1000,max_depth=5, min_samples_split=2,learning_rate=0.09, loss='ls')
 #     gdb.fit(X_train, y_train)
-#     pickl='GradientBoost3.pickle'
+#     pickl='GradientBoost2.pickle'
 #     pickle.dump(gdb,open(pickl,'wb'))
 # =============================================================================
-    gdb=pickle.load(open('GradientBoost3.pickle','rb'))
+    gdb=pickle.load(open('GradientBoost2.pickle','rb'))
     print("Score of Gradient Boosting Regression: %.4f" % gdb.score(X_test,y_test))
     predicted_test = gdb.predict(X_test)
     plt.plot(X_test,y_test,'g')

@@ -16,6 +16,6 @@ def visualize():
     plt.title('Bathrooms vs Price')
     plt.xlabel('Number of Bathrooms')
     plt.ylabel('Price')
-    plt.show()
+	plt.show()
 
 visualize()
